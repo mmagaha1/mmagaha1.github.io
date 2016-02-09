@@ -1,5 +1,14 @@
 .hidden { display: none; }
 
+form button {
+padding-top:10px;
+background-color:transparent;
+border:none;
+font-size:30px;
+float:right;
+color:#333333;
+}
+
 #feedback { font-size: 0.9em; }
   #selectable .ui-selecting { background: #FECA40; }
   #selectable .ui-selected { background: #F39814; color: white; }
@@ -32,6 +41,7 @@
 				width: 100%; }
 		
 #palmscan{height:250px; width:100px; background:#00FF00;}
+#panic{height:50px; width:50px; background:#FF0000;}
 
 #controls {
 				width: 400px; }
@@ -89,10 +99,14 @@
 
 			#d-pad {
 				text-align: center;
-				padding-left: 15px;
-				padding-right: 15px; }
+				padding-left: 0px;
+				padding-right: 0px; }
 				#d-pad #up, #d-pad #down {
+					width: 25px;
+					height: 25px;
 					display: block;
 					margin: 0.5em auto; }
 				#d-pad #left, #d-pad #right {
+					width: 25px;
+				height: 25px;
 					display: inline-block; }

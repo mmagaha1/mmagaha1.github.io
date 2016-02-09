@@ -28,14 +28,14 @@ User = {
 var hotNHeavy = Object.create(User);
 hotNHeavy.name = "Hot & Heavy";
 hotNHeavy.tag = 1;
-hotNHeavy.temp = 180;
-hotNHeavy.flow = 256;
+hotNHeavy.temp = 199;
+hotNHeavy.flow = 255;
 
 var coldShower = Object.create(User);
 coldShower.name = "Cold Shower"
 coldShower.tag = 2;
 coldShower.temp = 32;
-coldShower.flow = 256;
+coldShower.flow = 255;
 coldShower.angleZ = 20;
 
 var niceNGood = Object.create(User);
@@ -53,10 +53,10 @@ gentle.temp = 148;
 var defaultUser = Object.create(User);
 
 var User1 = Object.create(User);
-User1.name = User1;
+User1.name = "User1";
 User1.tag = 5;
 
-var listOfUsers = [defaultUser, hotNHeavy, coldShower,niceNGood, gentle, User1];
+var listOfUsers = [defaultUser, hotNHeavy, coldShower,niceNGood, gentle, User1 ];
 /*var a = [];
 a.forEach(function(entry) {
     var singleObj = {}
@@ -65,8 +65,14 @@ a.forEach(function(entry) {
     listOfUsers.push(singleObj);
 });*/
 
-
-var currentUser = Object.create(User);
+var thisguy = Object.create(User);
+thisguy.temp=150;
+thisguy.flow=1;
+thisguy.tag=1234567890;
+Globaltemp = 150;
+Globalflow=1;
+$( "#amount" ).val( 0 + " L/m" );
+var currentUser = thisguy
 
 //$('.slider').slider(); 
 
@@ -124,6 +130,7 @@ var mapFlow =  function(q){
   return mapRange([1,255],[0,9.5],q).toFixed(2);
 }
 
+
  //flow slider
  $(function() {
     $( "#slider-flow" ).slider({
@@ -141,6 +148,12 @@ var mapFlow =  function(q){
         Globalflow = ui.value;
         //console.log(Globalflow);
         //$( "#amount" ).val( "12 L/m");//Globalflow );
+        if(ui.value == 1){
+            document.getElementById('bath').style.backgroundColor = 'rgb(0,0,0)';
+            document.getElementById('shower').style.backgroundColor = 'rgb(0,0,0)';
+        }else{
+          refreshWater(Globaltemp);
+             }
       }
     });
     $( "#amount" ).val( $( "#slider-flow" ).slider( "value" ) );
@@ -153,7 +166,7 @@ var mapFlow =  function(q){
       range: "min",
       min: 1,
       max: 255,
-      value: 128,
+      value: mytemp(currentUser),
       create: function(event, ui){
         ui.value = mytemp(currentUser);
         $( "#temp" ).val( mapWater(ui.value) + " C" );
@@ -179,6 +192,27 @@ var mapFlow =  function(q){
     $( "#temp" ).val( $( "#slider-temp" ).slider( "value" ) );
     });
 
+ $( "#amount" ).val( 0 + " L/m" );
+ $( "#temp" ).val( mapWater(120) + " C" );
+
+
+  var login= function(){
+    spigot = currentUser.spigot;
+    Globaltemp = currentUser.temp;
+    $( "#temp" ).val( mapWater(currentUser.temp) + " C" );
+    $( "#slider-temp" ).slider( "value", currentUser.temp);
+
+    Globalflow = currentUser.flow;
+    $( "#amount" ).val( mapFlow(currentUser.flow) + " L/m" );
+    $( "#slider-flow" ).slider( "value", currentUser.flow);
+
+    refreshWater(currentUser.temp);
+    console.log(currentUser.name);
+  }
+
+
+
+
     $(function() {
     $( "#controls" ).draggable({ containment: "parent" });
   });
@@ -190,11 +224,85 @@ var mapFlow =  function(q){
     $(function() {
     $( "#user-menu" ).draggable({ containment: "parent" });
   });
-    $(function() {
-    $( "#selectable" ).selectable();
+    
+
+  var userlist = document.getElementById('selectable');
+  for(var i = 0; i < listOfUsers.length; i++) {
+    var u = listOfUsers[i];
+    var el = document.createElement("option");
+    //el.class="ui-state-default";
+    el.textContent = u.name;
+    el.value = u.tag;
+    userlist.appendChild(el);
+}
+
+$(function() {
+$("#pick").button()
+      .click(function( event ) {  
+           //console.log(currentUser.name);
+           //console.log(userlist.options[userlist.selectedIndex]);
+        currentUser = listOfUsers[userlist.options[userlist.selectedIndex].value];
+        //console.log(currentUser.name);
+        login();
   });
+});
+
+
+/*var ol = document.getElementById('selectable');
+var lists = ol.getElementsByTagName('li');
+console.log(lists[i].value);*/
+
+
+var userpick = document.getElementById('handprint2');
+for(var i = 0; i < listOfUsers.length; i++) {
+    var u = listOfUsers[i];
+    var el = document.createElement("option");
+    el.textContent = u.name;
+    el.value = u.tag;
+    userpick.appendChild(el);
+}
+
+
+
+$(function() {
+$("#handprint").button()
+      .click(function( event ) {  
+           //console.log(currentUser.name);
+           console.log(userpick.options[userpick.selectedIndex]);
+        currentUser = listOfUsers[userpick.options[userpick.selectedIndex].value];
+        console.log(currentUser.name);
+  });
+});
+
+
 
 //BUTTENS!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+ $(function() {
+    $( "#palmscan" )
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+        //tripleclick = true;
+        if(currentUser.tag == 1234567890){
+          currentUser = defaultUser;
+        }
+        login()
+      });
+ });
+
+$(function() {
+    $( "#panic" )
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+        //tripleclick = true;
+        $("#controls").show("fold");
+        $("#user-menu").show("fold");
+        $("#clock").show("fold");
+      });
+ });
+
+
  $(function() {
     $( "#3fingers" )
       .button()
@@ -254,23 +362,71 @@ $(function() {
       });
   });
 
+$(function() {
+    $('#up')
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+          if(currentUser.angleZ<=100){
+            $('#shower').animate({
+          'marginTop' : "-=10px"
+          });
+            currentUser.angleZ +=10;
+        }
+      });
+  });
+
+$(function() {
+    $('#down')
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+          if(currentUser.angleZ>=0){
+            $('#shower').animate({
+          'marginTop' : "+=10px"
+          });
+            currentUser.angleZ -=10;
+        }
+      });
+  });
+
+$(function() {
+    $('#left')
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+          if(currentUser.angleXY>=0){
+            $('#shower').animate({
+          'marginLeft' : "-=10px"
+          });
+            currentUser.angleXY -=10;
+        }
+      });
+  });
+
+$(function() {
+    $('#right')
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+          if(currentUser.angleXY<=100){
+            $('#shower').animate({
+          'marginLeft' : "+=10px"
+          });
+            currentUser.angleXY +=10;
+        }
+      });
+  });
 
 
-
-var userpick = document.getElementById('handprint2');
-for(var i = 0; i < listOfUsers.length; i++) {
-    var u = listOfUsers[i];
-    var el = document.createElement("option");
-    el.textContent = u.name;
-    el.value = u;
-    userpick.appendChild(el);
-}
 
 
 $(function() {
 $("#handprint").button()
-      .click(function( event ) {
-        currentUser = userpick.options[userpick.selectedIndex].value;
+      .click(function( event ) {  
+           //console.log(currentUser.name);
+           console.log(userpick.options[userpick.selectedIndex]);
+        currentUser = listOfUsers[userpick.options[userpick.selectedIndex].value];
         console.log(currentUser.name);
   });
 });
