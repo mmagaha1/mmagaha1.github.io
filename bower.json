@@ -1,0 +1,14 @@
+{
+  "name": "project1",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "jquery": "^2.2.0",
+    "jquery-ui": "^1.11.4",
+    "components-font-awesome": "components/font-awesome#^4.5.0"
+  }
+}

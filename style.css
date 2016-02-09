@@ -1,0 +1,78 @@
+#bin{
+	position:absolute;
+	bottom:0px;
+	width:100%;
+	height:5%;
+}
+
+#shower {
+	width:50px; height:25px; background:#707070; z-index: 15;
+}
+
+#bath {
+	width:50px; height:25px; background:#707070; z-index: 14;
+}
+
+#controls {
+				width: 400px; }
+			#controls .column, #controls #hide, #controls .slider, #controls #drain, #controls #faucets, #controls #d-pad, #controls #up, #controls #left, #controls #right, #controls #down, #controls #bath-toggle, #controls #set-default, #controls #enable-hot {
+				
+				padding: 1em; }
+			#controls .column, #controls #hide,  #controls #drain, #controls #faucets, #controls #d-pad, #controls #up, #controls #left, #controls #right, #controls #down, #controls #bath-toggle, #controls #set-default, #controls #enable-hot {
+				border: 1px black solid;
+				}
+			#controls .column, #controls #faucets {
+				position: relative;
+				display: table-cell;
+				min-width: 33%; }
+			#controls #faucets{
+
+				padding-left:25px;
+				padding-right:25px;
+			}
+			#controls .column {
+				vertical-align: middle; }
+			#controls .column button {
+				position: absolute; }
+			#controls .column #hide {
+				top: 0px;
+				left: 0px; 
+				width: 25px;
+				height: 25px;
+				padding-top: 10px;
+				padding-bottom: 10px; }
+			#controls .column #drain {
+				bottom: 0px;
+				left: 0px;
+				width: 25px;
+				height: 25px;
+				padding-top: 10px;
+				padding-bottom: 10px;  }
+			#controls .column #set-default {
+				top: 0px;
+				right: 0px;
+				width: 25px;
+				height: 25px;
+				padding-top: 10px;
+				padding-bottom: 10px; }
+			#controls .column #enable-hot {
+				bottom: 0px;
+				right: 0px;
+				width: 25px;
+				height: 25px;
+				padding-top: 10px;
+				padding-bottom: 10px; }
+			#controls .column .slider {
+				position: relative; 
+				
+						}
+
+			#d-pad {
+				text-align: center;
+				padding-left: 15px;
+				padding-right: 15px; }
+				#d-pad #up, #d-pad #down {
+					display: block;
+					margin: 0.5em auto; }
+				#d-pad #left, #d-pad #right {
+					display: inline-block; }

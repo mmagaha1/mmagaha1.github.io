@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			html,body {height: 100%;}
+		</style>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="D:\Programming\cs422\project1\bower_components\jquery-ui\themes\base\jquery-ui.css">
+		<link rel="stylesheet" href="D:\Programming\cs422\project1\bower_components\components-font-awesome\css\font-awesome.min.css">
+	</head>
+
+	<body>
+		<!--	"HELLO WARLD!"
+		
+
+		<canvas id="c" width="1600" height="900" style="border:1px solid #ccc">
+<div class="controls">
+  <p>
+    <label><span>Angle:</span> <input type="range" id="angle-control" value="0" min="-90" max="90"></label>
+  </p>
+  <p>
+    <label><span>Left:</span> <input type="range" id="left-control" value="150" min="0" max="300"></label>
+  </p>
+  <p>
+    <label><span>Top:</span> <input type="range" id="top-control" value="150" min="0" max="300"></label>
+  </p>
+  <p>
+    <label><span>Scale:</span> <input type="range" id="scale-control" value="1" min="0.1" max="3" step="0.1"></label>
+  </p>
+</div>
+ </canvas>
+		 -->
+
+		<div id="Main"  style="displayblock; height:95%; width:100%; position:fixed"><!-- height:100% width:100%> -->
+				<div id='water1' style = "top:5%; left:80%; hieght:150px; width:150px; position:relative; border:1px solid #ccc">
+					<div id='shower'> <p>Shower</p> </div>
+					
+					
+				</div>
+				<div id='water2' style = "top:85%; left:80%; hieght:150px; width = 150px; position:relative;">
+					<div id='bath'> <p>Bath</p>  </div>
+					
+					
+				</div>
+
+				<div>
+
+			<div id="controls" class="ui-widget-content ui-corner-all">
+					<div class="column">
+						<button id="hide"><i class="fa fa-times" style="float:left"></i></button>
+						<div class="slider">
+							<p>
+							<label for="amount" >Flow:</label>
+  							<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  							</p>
+  							<div id="slider-flow" style="height:150px; float:left;"></div>
+						</div>
+						<button id="drain"><i class="fa fa-circle-o-notch fa-spin"></i></button>
+					</div>
+					<div id="faucets">
+						<div id="d-pad">
+							<button id="up"><i class="fa fa-arrow-up"></i></button>
+							<button id="left"><i class="fa fa-arrow-left"></i></button>
+							<button id="right"><i class="fa fa-arrow-right"></i></button>
+							<button id="down"><i class="fa fa-arrow-down"></i></button>
+						</div>
+					<div id="bath-toggle" style ="width:100px"><button><div id='bathstat'>shower</div></button></div>
+					</div>
+					<div class="column">
+						<button id="set-default"><i class="fa fa-heart"></i></button>
+						<div class="slider">
+							<p style="float:right">
+							<label for="temp" >temp:</label>
+  							<input type="text" id="temp" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  							</p>
+  							<div id="slider-temp" style="height:150px; float:right;"></div>
+						</div>
+						<button id="enable-hot"><i class="fa fa-fire"></i></button>
+					</div>
+				</div>
+
+				
+			<!-- <div id=walls style="borders1px black solid; height:100%; width:33%; left:33%; position:relative;"> -->
+				
+		</div>	
+
+	<div id="bin" bottom:0px height:5% width:100%>
+					<button id="3fingers">show menu</button>
+				</div>
+
+		<script src="D:/Programming/cs422/project1/bower_components/jquery/dist/jquery.js"></script>
+		<script src="D:/Programming/cs422/project1/bower_components/jquery-ui/jquery-ui.js"></script>
+		<script src="D:/Programming/cs422/project1/bower_components/fabric.js-master/dist/fabric.js"></script>
+		<script src="D:/Programming/cs422/project1/script.js"></script>
+
+		
+ 		
+
+	</body>
+</html>
+
+<!-- <div id="controls" class="ui-widget-content">
+  					<p style="float:left;">
+  						<label for="amount" >Flow:</label>
+  						<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+					</p>
+  					<div id="slider-flow" style="height:200px; float:left;"></div>
+
+  					<p style="float:right;">
+  						<label for="temp" >temp:</label>
+  						<input type="text" id="temp" readonly style="border:0; color:#f6931f; font-weight:bold;">
+					</p>
+  					<div id="slider-temp" style="height:200px; float:right;"></div>
+				</div> -->
