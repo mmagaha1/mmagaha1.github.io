@@ -13,6 +13,18 @@
 	width:50px; height:25px; background:#707070; z-index: 14;
 }
 
+
+			#user-menu, #user-preferences, #sidebar {
+			  border: 1px black solid; }
+
+			#user-menu {
+			  width: 200px; }
+			  #user-menu #user-preferences, #user-menu #sidebar {
+				display: table-cell;
+				width: 100%; }
+		
+#palmscan{height:250px; width:100px; background:#00FF00;}
+
 #controls {
 				width: 400px; }
 			#controls .column, #controls #hide, #controls .slider, #controls #drain, #controls #faucets, #controls #d-pad, #controls #up, #controls #left, #controls #right, #controls #down, #controls #bath-toggle, #controls #set-default, #controls #enable-hot {

@@ -6,7 +6,7 @@
 
 var tripleclick = false;
 var spigot = true;
-
+var hot = false;
 
 
 User = {
@@ -16,8 +16,9 @@ User = {
   flow:150,
   angleXY:50,
   angleZ:30,
-  metric:true,//if true uses metric units
-  localization:"en-us",//string for language
+  heat:false,
+  //metric:true,//if true uses metric units
+  //localization:"en-us",//string for language
 };
 
 var hotNHeavy = Object.create(User);
@@ -63,7 +64,7 @@ var myfunc = function(User){
   return User.temp;
 };
 
-var  hexFromRB = function(r, b) {
+/*var  hexFromRB = function(r, b) {
     var hex = [
       (r).toString( 16 ),
       "0",
@@ -80,7 +81,7 @@ var  hexFromRB = function(r, b) {
     return hex.join( "" ).toUpperCase();
   };
 
-  /*var refreshWater = function( q) {
+  var refreshWater = function( q) {
     var red = q;
       blue = 256 - q;
       hex = hexFromRB( red, blue );
@@ -117,7 +118,7 @@ var  hexFromRB = function(r, b) {
         //$( "#amount" ).val( ui.value );
         Globalflow = ui.value;
         console.log(Globalflow);
-        $( "#amount" ).val( Globalflow );
+        $( "#amount" ).val( "12 L/m");//Globalflow );
       }
     });
     $( "#amount" ).val( $( "#slider-flow" ).slider( "value" ) );
@@ -134,7 +135,7 @@ var  hexFromRB = function(r, b) {
       slide: function( event, ui ) {
         Globaltemp = ui.value;
         //console.log(Globaltemp);
-        $( "#temp" ).val( Globaltemp );
+        $( "#temp" ).val( "28 C");//Globaltemp );
         //changeBackground(ui.value);
         refreshWater(ui.value);
         //$( "#temp" ).val( ui.value );
@@ -159,7 +160,7 @@ var  hexFromRB = function(r, b) {
       });
  });
 
-$("#hide").css({ width: '25px', height: '25px', 'padding-top': '10px', 'padding-bottom': '10px' });
+//$("#hide").css({ width: '25px', height: '25px', 'padding-top': '10px', 'padding-bottom': '10px' });
  $(function() {
     $( "#hide" )
       .button()
@@ -189,6 +190,19 @@ $("#hide").css({ width: '25px', height: '25px', 'padding-top': '10px', 'padding-
       });
  });
 
+$(function() {
+    $( "#enable-hot" )
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+        //$("#controls").hide("fold");
+        if(hot==false){
+            hot=true;
+        }else{
+
+        }
+      });
+  });
   /*$( "#Main" ).click(function(event) {
       if(tripleclick){
         console.log(event.pageX , event.pageY);
