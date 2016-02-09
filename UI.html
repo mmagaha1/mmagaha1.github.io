@@ -44,10 +44,12 @@
 				</div>
 
 				<div id="analogue" style=" left:0%; top:30%; position:relative">
-					<div id="palmscan">scanner</div>
+					<button id="palmscan">scanner</button>
 				</div>
 
-			<div id="controls" class="ui-widget-content ui-corner-all">
+				
+
+			<div id="controls" class="ui-widget-content ui-corner-all" style="left:100px; position:relative">
 					<div class="column">
 						<button id="hide"><i class="fa fa-times" style="float:left"></i></button>
 						<div class="slider">
@@ -81,14 +83,40 @@
 					</div>
 				</div>
 
+				<div id="user-menu" class="hidden">
+					<div id="user-preferences">
+					<ol id="selectable">
+  						<li class="ui-state-default">1</li>
+  						<li class="ui-state-default">2</li>
+  						<li class="ui-state-default">3</li>
+  						<li class="ui-state-default">4</li>
+  						<li class="ui-state-default">5</li>
+  						<li class="ui-state-default">6</li>
+  						<li class="ui-state-default">7</li>
+  						<li class="ui-state-default">8</li>
+  						<li class="ui-state-default">9</li>
+  						<li class="ui-state-default">10</li>
+  						<li class="ui-state-default">11</li>
+  						<li class="ui-state-default">12</li>
+					</ol>
+					</div>
+					<div id="sidebar">
+						<button class="hide" id="uhide"><i class="fa fa-times" style="float:left"></i></button>
+					</div>
+				</div>
+
+				<div id="clock" class="hidden">
+					<a href="#">
+                        <img class="img-responsive" src="img/clock.jpg" alt=""></img>
+                    </a>
+                    	<button class="hide" id="chide"><i class="fa fa-times" style="float:left"></i></button>
+				</div>
+
+				
 				
 			<!-- <div id=walls style="borders1px black solid; height:100%; width:33%; left:33%; position:relative;"> 
 
-					<div id="user-menu">
-			<div id="user-preferences">user prefs</div>
-			<div id="sidebar">
-				<button class="hide">hide</button>
-			</div>
+					
 			-->
 		
 		</div>	
@@ -97,13 +125,17 @@
 					<button id="3fingers">show menu</button>
 				
 	
-					<button id="4fingers">show users</button>
+					<button id="4fingers">show users menu</button>
 				
 
 					<button id="handprint">pick user</button>
 				
 
-					<button id="handprint2">show menu</button>
+					<select id="handprint2">
+					<option>Choose a user</option>
+					</select>
+
+					<button id="showclock"> show clock </button>
 				</div>
 
 		<script src="./bower_components/jquery/dist/jquery.js"></script>

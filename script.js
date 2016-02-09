@@ -8,6 +8,9 @@ var tripleclick = false;
 var spigot = true;
 var hot = false;
 
+var mapRange = function(from, to, s) {
+  return to[0] + (s - from[0]) * (to[1] - to[0]) / (from[1] - from[0]);
+};
 
 User = {
   name: "User",
@@ -17,6 +20,7 @@ User = {
   angleXY:50,
   angleZ:30,
   heat:false,
+  spigot:true,
   //metric:true,//if true uses metric units
   //localization:"en-us",//string for language
 };
@@ -46,24 +50,33 @@ gentle.tag = 4;
 gentle.flow = 32;
 gentle.temp = 148;
 
-var listOfUsers = [];
-var a = [hotNHeavy, coldShower,niceNGood, gentle];
+var defaultUser = Object.create(User);
+
+var User1 = Object.create(User);
+User1.name = User1;
+User1.tag = 5;
+
+var listOfUsers = [defaultUser, hotNHeavy, coldShower,niceNGood, gentle, User1];
+/*var a = [];
 a.forEach(function(entry) {
     var singleObj = {}
     singleObj['type'] = User;
     singleObj['value'] = entry;
     listOfUsers.push(singleObj);
-});
+});*/
 
 
 var currentUser = Object.create(User);
 
 //$('.slider').slider(); 
 
-var myfunc = function(User){
-  return User.temp;
+var myflow = function(User){
+  return User.flow;
 };
 
+var mytemp = function(User){
+  return User.temp;
+}
 /*var  hexFromRB = function(r, b) {
     var hex = [
       (r).toString( 16 ),
@@ -103,6 +116,14 @@ var myfunc = function(User){
 }
 }  ;
 
+var mapWater = function(q){
+  return mapRange([1,255],[4,50],q).toFixed(2);
+}
+
+var mapFlow =  function(q){
+  return mapRange([1,255],[0,9.5],q).toFixed(2);
+}
+
  //flow slider
  $(function() {
     $( "#slider-flow" ).slider({
@@ -110,15 +131,16 @@ var myfunc = function(User){
       range: "min",
       min: 1,
       max: 255,
-      value: myfunc(currentUser),
+      value: myflow(currentUser),
       create: function(event, ui){
-        ui.value = myfunc(currentUser);
+        ui.value = myflow(currentUser);
+        $( "#amount" ).val( mapFlow(ui.value) + " L/m" );
       },
       slide: function( event, ui ) {
-        //$( "#amount" ).val( ui.value );
+        $( "#amount" ).val( mapFlow(ui.value) + " L/m" );
         Globalflow = ui.value;
-        console.log(Globalflow);
-        $( "#amount" ).val( "12 L/m");//Globalflow );
+        //console.log(Globalflow);
+        //$( "#amount" ).val( "12 L/m");//Globalflow );
       }
     });
     $( "#amount" ).val( $( "#slider-flow" ).slider( "value" ) );
@@ -132,13 +154,26 @@ var myfunc = function(User){
       min: 1,
       max: 255,
       value: 128,
+      create: function(event, ui){
+        ui.value = mytemp(currentUser);
+        $( "#temp" ).val( mapWater(ui.value) + " C" );
+      },
       slide: function( event, ui ) {
         Globaltemp = ui.value;
         //console.log(Globaltemp);
-        $( "#temp" ).val( "28 C");//Globaltemp );
+        //$( "#temp" ).val( "28 C");//Globaltemp );
         //changeBackground(ui.value);
         refreshWater(ui.value);
-        //$( "#temp" ).val( ui.value );
+        $( "#temp" ).val( mapWater(ui.value) + " C" );
+        if(hot == false){
+            if(ui.value>=200){
+            ui.value = 199;
+            Globaltemp=199;
+            refreshWater(199);
+            $("#temp").val(mapWater(199) + " C");
+          }
+            //$("#slider-temp").slider("value", 199);
+        }
       }
     });
     $( "#temp" ).val( $( "#slider-temp" ).slider( "value" ) );
@@ -148,6 +183,16 @@ var myfunc = function(User){
     $( "#controls" ).draggable({ containment: "parent" });
   });
 
+    $(function() {
+    $( "#clock" ).draggable({ containment: "parent" });
+  });
+
+    $(function() {
+    $( "#user-menu" ).draggable({ containment: "parent" });
+  });
+    $(function() {
+    $( "#selectable" ).selectable();
+  });
 
 //BUTTENS!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
  $(function() {
@@ -199,10 +244,89 @@ $(function() {
         if(hot==false){
             hot=true;
         }else{
-
+          hot=false;
+          if(Globaltemp>=200)
+          Globaltemp=199;
+          refreshWater(199);
+          $("#temp").val(mapWater(199) + " C");
+          $("#slider-temp").slider("value", 199);
         }
       });
   });
+
+
+
+
+var userpick = document.getElementById('handprint2');
+for(var i = 0; i < listOfUsers.length; i++) {
+    var u = listOfUsers[i];
+    var el = document.createElement("option");
+    el.textContent = u.name;
+    el.value = u;
+    userpick.appendChild(el);
+}
+
+
+$(function() {
+$("#handprint").button()
+      .click(function( event ) {
+        currentUser = userpick.options[userpick.selectedIndex].value;
+        console.log(currentUser.name);
+  });
+});
+
+$(function() {
+    $( "#showclock" )
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+        //tripleclick = true;
+        $("#clock").show("fold");
+      });
+ });
+
+$(function() {
+    $( "#chide" )
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+        $("#clock").hide("fold");
+      });
+  });
+
+$(function() {
+    $( "#4fingers" )
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+        //tripleclick = true;
+        $("#user-menu").show("fold");
+      });
+ });
+
+$(function() {
+    $( "#uhide" )
+      .button()
+      .click(function( event ) {
+        //event.preventDefault();
+        $("#user-menu").hide("fold");
+      });
+  });
+
+//$( "#handprint2" ).selectmenu();//{ style: "dropdown", width:140 });
+/*_renderMenu: function( handprint2, listOfUsers ) {
+  var that = this;
+  $.each( listOfUsers, function( index, item ) {
+    that._renderItemData( handprint2, item );
+  });
+  //$( ul ).find( "li:odd" ).addClass( "odd" );
+}*/
+
+//$( "#handprint2" ).on( "selectmenuselect", function( event, ui ) { currentuser = ui.value} );
+
+
+
+
   /*$( "#Main" ).click(function(event) {
       if(tripleclick){
         console.log(event.pageX , event.pageY);
